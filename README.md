@@ -36,3 +36,5 @@ Respaldo de los datos (seguro aunque el servicio esté corriendo):
 ```
 python3 -c "import sqlite3,pathlib; o=sqlite3.connect(pathlib.Path.home()/'.local/share/casa/tareas.db'); d=sqlite3.connect('tareas-respaldo.db'); o.backup(d)"
 ```
+
+Respaldo automático: todos los días a las 3:30 a. m. en `/media/datos/Backups/casa/` (proyecto `infra/respaldos`).
