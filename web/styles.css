@@ -1,0 +1,267 @@
+:root {
+  --fondo: #f5f3fa;
+  --superficie: #ffffff;
+  --tinta: #24203a;
+  --tinta-suave: #686480;
+  --linea: #e2deee;
+  --acento: #5b4bc4;
+  --acento-suave: #ebe8fb;
+  --hecho: #2f8f4e;
+  --error: #c62828;
+  --fuente: "Atkinson Hyperlegible", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+/* Que `hidden` gane aunque la clase defina display (grid, flex) */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: var(--fuente);
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+
+.pagina {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 16px 100px;
+}
+
+.cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+h1 { margin: 0; font-size: 1.8rem; }
+
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+  white-space: nowrap;
+}
+.estado::before {
+  content: "";
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--tinta-suave);
+}
+.estado[data-estado="ok"]::before { background: var(--hecho); }
+.estado[data-estado="error"] { color: var(--error); }
+.estado[data-estado="error"]::before { background: var(--error); }
+
+/* ---------- Filtro ---------- */
+
+.filtro {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+  scrollbar-width: none;
+}
+.filtro button {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--linea);
+  border-radius: 999px;
+  background: var(--superficie);
+  font-weight: 700;
+}
+.filtro button[aria-pressed="true"] {
+  background: var(--tinta);
+  border-color: var(--tinta);
+  color: #fff;
+}
+.punto { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+
+.error {
+  margin: 4px 0 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #fdecea;
+  color: var(--error);
+  font-weight: 700;
+}
+
+.aviso {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  background: var(--acento-suave);
+}
+.aviso p { margin: 0; }
+
+/* ---------- Bloques ---------- */
+
+.bloque { margin-top: 18px; }
+.bloque-cabeza { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.bloque h2 { margin: 0 0 8px; font-size: 1.2rem; }
+.avance { font-size: 0.9rem; font-weight: 700; color: var(--tinta-suave); }
+.vacio { margin: 8px 2px; color: var(--tinta-suave); }
+
+.tareas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.tarea {
+  --color: var(--tinta-suave);
+  display: flex;
+  border-radius: 14px;
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-left: 6px solid var(--color);
+  overflow: hidden;
+}
+
+.tarea-marcar {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 10px 13px 12px;
+  border: none;
+  background: none;
+  text-align: left;
+}
+
+.tarea-check {
+  flex: none;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 2.5px solid var(--color);
+  display: grid;
+  place-items: center;
+}
+
+.tarea-texto { min-width: 0; display: grid; gap: 3px; }
+.tarea-titulo { font-size: 1.1rem; font-weight: 700; overflow-wrap: anywhere; }
+.tarea-meta { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 0.85rem; color: var(--tinta-suave); }
+.tarea-persona { font-weight: 700; color: var(--color); }
+
+.tarea-editar {
+  flex: none;
+  width: 48px;
+  border: none;
+  background: none;
+  color: var(--tinta-suave);
+  font-size: 1.15rem;
+}
+
+.tarea.hecha { background: transparent; }
+.tarea.hecha .tarea-titulo { text-decoration: line-through; color: var(--tinta-suave); font-weight: 400; }
+.tarea.hecha .tarea-check { background: var(--color); }
+.tarea.hecha .tarea-check::after {
+  content: "";
+  width: 7px; height: 13px;
+  margin-top: -3px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/* ---------- Barra inferior ---------- */
+
+.barra {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 16px max(12px, env(safe-area-inset-bottom));
+  background: linear-gradient(to top, var(--fondo) 70%, transparent);
+}
+.barra .boton-principal { flex: 0 1 320px; }
+
+.boton-principal, .boton {
+  padding: 13px 18px;
+  border: none;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.boton-principal { background: var(--acento); color: #fff; }
+.boton { background: var(--acento-suave); color: var(--acento); }
+
+.enlace {
+  padding: 6px 0;
+  border: none;
+  background: none;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.peligro { color: var(--error); }
+
+/* ---------- Diálogos ---------- */
+
+.dialogo {
+  width: min(480px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 20px;
+  border: none;
+  border-radius: 20px;
+  background: var(--superficie);
+  color: var(--tinta);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+.dialogo::backdrop { background: rgba(20, 16, 40, 0.45); }
+.dialogo h2 { margin: 0 0 14px; font-size: 1.3rem; }
+.dialogo form, .dialogo-contenido { display: grid; gap: 14px; }
+
+.campo { display: grid; gap: 6px; margin: 0; padding: 0; border: none; }
+.etiqueta { font-size: 0.9rem; font-weight: 700; color: var(--tinta-suave); padding: 0; }
+
+.dialogo input[type="text"], .dialogo select {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--linea);
+  border-radius: 12px;
+  background: var(--fondo);
+  font-size: 1.05rem;
+}
+.dialogo input:focus, .dialogo select:focus { outline: 2px solid var(--acento); outline-offset: 1px; }
+
+.opcion { display: flex; align-items: center; gap: 10px; padding: 6px 0; }
+.opcion input { width: 22px; height: 22px; accent-color: var(--acento); }
+
+.dialogo-botones { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.espacio { flex: 1; }
+
+.personas { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.persona { display: flex; align-items: center; gap: 10px; }
+.persona .punto { width: 14px; height: 14px; }
+.persona input { flex: 1; }
+.persona button {
+  flex: none;
+  width: 40px; height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--tinta-suave);
+  font-size: 1.05rem;
+}
+
+.agregar-persona { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }

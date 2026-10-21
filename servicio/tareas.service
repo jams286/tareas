@@ -1,0 +1,12 @@
+[Unit]
+Description=Tablero de tareas de la casa (API JSON + SQLite)
+After=network-online.target
+
+[Service]
+WorkingDirectory=%h/proyectos/casa/tareas
+ExecStart=/usr/bin/python3 servidor.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

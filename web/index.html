@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f3fa">
+  <title>Tareas de la casa</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="pagina">
+    <header class="cabecera">
+      <h1>Tareas de la casa</h1>
+      <span class="estado" id="estado" data-estado="cargando">Cargando…</span>
+    </header>
+
+    <nav class="filtro" id="filtro" aria-label="Ver tareas de"></nav>
+
+    <p class="error" id="error" hidden></p>
+
+    <section class="aviso" id="sin-personas" hidden>
+      <p>Primero agrega a las personas de la casa para poder repartir las tareas.</p>
+      <button type="button" class="boton-principal" data-abrir="personas">Agregar personas</button>
+    </section>
+
+    <section class="bloque" id="bloque-hoy">
+      <div class="bloque-cabeza">
+        <h2>Hoy</h2>
+        <span class="avance" id="avance-hoy"></span>
+      </div>
+      <ul class="tareas" id="lista-hoy"></ul>
+      <p class="vacio" id="vacio-hoy" hidden>Nada para hoy.</p>
+    </section>
+
+    <section class="bloque" id="bloque-semana">
+      <div class="bloque-cabeza">
+        <h2>Esta semana</h2>
+        <span class="avance" id="avance-semana"></span>
+      </div>
+      <ul class="tareas" id="lista-semana"></ul>
+      <p class="vacio" id="vacio-semana" hidden>Nada para esta semana.</p>
+    </section>
+
+    <div class="barra">
+      <button type="button" class="boton-principal" id="nueva-tarea">+ Nueva tarea</button>
+      <button type="button" class="boton" data-abrir="personas">Personas</button>
+    </div>
+  </main>
+
+  <template id="plantilla">
+    <li class="tarea">
+      <button type="button" class="tarea-marcar" data-accion="marcar">
+        <span class="tarea-check" aria-hidden="true"></span>
+        <span class="tarea-texto">
+          <span class="tarea-titulo"></span>
+          <span class="tarea-meta">
+            <span class="tarea-persona"></span>
+            <span class="tarea-repeticion"></span>
+          </span>
+        </span>
+      </button>
+      <button type="button" class="tarea-editar" data-accion="editar" aria-label="Editar">✎</button>
+    </li>
+  </template>
+
+  <dialog id="dialogo-tarea" class="dialogo">
+    <form method="dialog" id="form-tarea">
+      <h2 id="titulo-dialogo-tarea">Nueva tarea</h2>
+
+      <label class="campo">
+        <span class="etiqueta">Tarea</span>
+        <input type="text" id="tarea-titulo" maxlength="80" placeholder="Lavar los platos, barrer…" required autocomplete="off">
+      </label>
+
+      <label class="campo">
+        <span class="etiqueta">¿Quién?</span>
+        <select id="tarea-persona"></select>
+      </label>
+
+      <fieldset class="campo">
+        <legend class="etiqueta">¿Cada cuánto?</legend>
+        <label class="opcion"><input type="radio" name="repeticion" value="una" checked> Solo una vez</label>
+        <label class="opcion"><input type="radio" name="repeticion" value="diaria"> Todos los días</label>
+        <label class="opcion"><input type="radio" name="repeticion" value="semanal"> Una vez por semana</label>
+      </fieldset>
+
+      <div class="dialogo-botones">
+        <button type="button" class="enlace peligro" id="borrar-tarea" hidden>Borrar tarea</button>
+        <span class="espacio"></span>
+        <button type="button" class="boton" data-cerrar>Cancelar</button>
+        <button type="submit" class="boton-principal">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dialogo-personas" class="dialogo">
+    <div class="dialogo-contenido">
+      <h2>Personas</h2>
+      <ul class="personas" id="lista-personas"></ul>
+      <form class="agregar-persona" id="form-persona" autocomplete="off">
+        <input type="text" id="persona-nombre" maxlength="30" placeholder="Nombre">
+        <button type="submit" class="boton-principal">Agregar</button>
+      </form>
+      <div class="dialogo-botones">
+        <span class="espacio"></span>
+        <button type="button" class="boton" data-cerrar>Listo</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
