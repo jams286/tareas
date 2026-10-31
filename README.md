@@ -2,7 +2,7 @@
 
 Tablero de tareas de la casa: quién hace qué hoy y esta semana. Tareas de una vez, diarias o semanales; se marcan como hechas desde cualquier celular o la tablet y todos lo ven en unos segundos.
 
-- Página: http://192.168.1.4/tareas/
+- Página: https://192.168.1.4/tareas/
 - Datos: `~/.local/share/casa/tareas.db` (SQLite)
 
 ## Partes

@@ -1,5 +1,7 @@
 # tareas (casa)
 
+Tracker: tareas
+
 Tablero de tareas del hogar, compartido entre los celulares y la tablet (vía el hub `infra/home`).
 
 ## Qué hace
@@ -19,7 +21,7 @@ Tablero de tareas del hogar, compartido entre los celulares y la tablet (vía el
 
 ## Dónde corre
 
-- Página: http://192.168.1.4/tareas/ (archivos en `/var/www/tareas/`, copiados de `web/`).
+- Página: https://192.168.1.4/tareas/ (archivos en `/var/www/tareas/`, copiados de `web/`).
 - API: nginx publica `/tareas/api/` → `127.0.0.1:8771/api/` (config en `infra/nginx`).
 - Servicio systemd de usuario `tareas.service` (copia en `servicio/`).
 - Comandos de publicación, servicio y respaldo en el README.
